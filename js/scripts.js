@@ -101,46 +101,52 @@ function convert() {
     // Display the result
     document.getElementById('result').textContent = result.toFixed(2);
 }
-}
 function calculate(event) {
     event.preventDefault();
     
     const numberSeriesInput = document.getElementById('numberSeries').value;
-    const numbers = numberSeriesInput.split(',').map(Number);
+    const numbersAndAlphabets = numberSeriesInput.split(',').map(item => item.trim());
+    const numbers = numbersAndAlphabets.filter(item => !isNaN(item) && item !== '').map(Number);
     
-    const max = Math.max(...numbers);
-    const min = Math.min(...numbers);
-    const sum = numbers.reduce((acc, curr) => acc + curr, 0);
-    const average = sum / numbers.length;
-    const reverse = numbers.slice().reverse();
+    const max = numbers.length ? Math.max(...numbers) : 'N/A';
+    const min = numbers.length ? Math.min(...numbers) : 'N/A';
+    const sum = numbers.length ? numbers.reduce((acc, curr) => acc + curr, 0) : 'N/A';
+    const average = numbers.length ? (sum / numbers.length).toFixed(2) : 'N/A';
+    const reverse = numbersAndAlphabets.slice().reverse(); // Keep alphabets as-is for reverse order
     
     document.getElementById('max').textContent = `Max: ${max}`;
     document.getElementById('min').textContent = `Min: ${min}`;
     document.getElementById('sum').textContent = `Sum: ${sum}`;
-    document.getElementById('average').textContent = `Average: ${average.toFixed(2)}`;
+    document.getElementById('average').textContent = `Average: ${average}`;
     document.getElementById('reverse').textContent = `Reverse Order: ${reverse.join(', ')}`;
 }
+
 // Function to calculate the statistics in real-time
 function calculateRealTime() {
     const numberSeriesInput = document.getElementById('numberSeries').value;
-    const numbers = numberSeriesInput.split(',').map(Number);
+    const numbersAndAlphabets = numberSeriesInput.split(',').map(item => item.trim());
+    const numbers = numbersAndAlphabets.filter(item => !isNaN(item) && item !== '').map(Number);
     
-    const max = Math.max(...numbers);
-    const min = Math.min(...numbers);
-    const sum = numbers.reduce((acc, curr) => acc + curr, 0);
-    const average = sum / numbers.length;
-    const reverse = numbers.slice().reverse();
+    const max = numbers.length ? Math.max(...numbers) : 'N/A';
+    const min = numbers.length ? Math.min(...numbers) : 'N/A';
+    const sum = numbers.length ? numbers.reduce((acc, curr) => acc + curr, 0) : 'N/A';
+    const average = numbers.length ? (sum / numbers.length).toFixed(2) : 'N/A';
+    const reverse = numbersAndAlphabets.slice().reverse(); // Keep alphabets as-is for reverse order
     const ascending = numbers.slice().sort((a, b) => a - b);
     const descending = numbers.slice().sort((a, b) => b - a);
     
     document.getElementById('max').textContent = `Max: ${max}`;
     document.getElementById('min').textContent = `Min: ${min}`;
     document.getElementById('sum').textContent = `Sum: ${sum}`;
-    document.getElementById('average').textContent = `Average: ${average.toFixed(2)}`;
+    document.getElementById('average').textContent = `Average: ${average}`;
     document.getElementById('reverse').textContent = `Reverse Order: ${reverse.join(', ')}`;
     document.getElementById('ascending').textContent = `Ascending Order: ${ascending.join(', ')}`;
     document.getElementById('descending').textContent = `Descending Order: ${descending.join(', ')}`;
 }
+
+// Event listener to trigger calculation on input change
+document.getElementById('numberSeries').addEventListener('input', calculateRealTime);
+
 
 
 
