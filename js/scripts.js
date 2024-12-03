@@ -101,6 +101,7 @@ function convert() {
     // Display the result
     document.getElementById('result').textContent = result.toFixed(2);
 }
+}
 function calculate(event) {
     event.preventDefault();
     
@@ -140,11 +141,6 @@ function calculateRealTime() {
     document.getElementById('ascending').textContent = `Ascending Order: ${ascending.join(', ')}`;
     document.getElementById('descending').textContent = `Descending Order: ${descending.join(', ')}`;
 }
-
-// Event listener to trigger calculation on input change
-document.getElementById('numberSeries').addEventListener('input', calculateRealTime);
-
-
 
 
 
